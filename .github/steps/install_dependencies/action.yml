@@ -1,0 +1,50 @@
+name: Install Dependencies
+description: ""
+
+inputs:
+  dotnet-version:
+    description: 'Installs and sets the .NET SDK Version'
+    required: false
+    default: '9.0.x'
+  sdkVersion:
+    description: 'The version of the Windows Sdk'
+    required: false
+    default: '22621'
+
+runs:
+  using: "composite"
+  steps:
+    # Cache .NET SDK
+    - name: Cache .NET SDK
+      uses: actions/cache@v3
+      with:
+        path: ~/.dotnet # Path to the installed .NET SDK
+        key: dotnet-sdk-${{ inputs.dotnet-version }}-${{ runner.os }}
+        restore-keys: |
+          dotnet-sdk-${{ runner.os }}
+
+    # Install .NET
+    - name: Setup .NET ${{ inputs.dotnet-version }}
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '${{ inputs.dotnet-version }}'
+    
+    # Cache Windows SDK files
+    - name: Cache Windows SDK
+      uses: actions/cache@v3
+      with:
+        path: C:\WindowsKits
+        key: windows-sdk-${{ inputs.sdkVersion }}
+        restore-keys: |
+          windows-sdk-
+
+    # Install Windows SDK (if not already cached)
+    - name: Install Windows SDK ${{ inputs.sdkVersion }}
+      shell: pwsh
+      if: ${{ runner.os == 'Windows' }}
+      run: |
+        if (-not (Test-Path "C:\WindowsKits\10\$(${{ inputs.sdkVersion }})")) {
+            .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
+        } else {
+            Write-Host "Windows SDK already cached. Skipping installation."
+        }

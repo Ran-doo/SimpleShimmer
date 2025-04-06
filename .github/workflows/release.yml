@@ -1,0 +1,20 @@
+name: NuGet Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - name: Publish Chores
+      uses: mou-haz/GitHub-WorkFlows/.github/steps/package_publish@main
+      with:
+        token: ${{ secrets.GithubPackages_Key }}
+        repo_name: SimpleShimmer
+        nuget_token: ${{ secrets.Nu_Key }}
+        github_packages_token: ${{ secrets.GithubPackages_Key }}
