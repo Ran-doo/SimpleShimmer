@@ -12,9 +12,6 @@ jobs:
 
     steps:
     - name: Publish Chores
-      uses: Ran-doo/GitHub-WorkFlows/.github/steps/package_publish@main
+      uses: Ran-doo/GitHub-WorkFlows/.github/steps/setup_core@main
       with:
         token: ${{ secrets.GithubPackages_Key }}
-        repo_name: SimpleShimmer
-        nuget_token: ${{ secrets.Nu_Key }}
-        github_packages_token: ${{ secrets.GithubPackages_Key }}
