@@ -20,3 +20,4 @@ jobs:
       uses: "./GitHub-WorkFlows/.github/steps/package_publish"
       with:
         token: ${{ secrets.GithubPackages_Key }}
+        repo_name: "SimpleShimmer"
