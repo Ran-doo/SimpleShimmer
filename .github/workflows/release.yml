@@ -21,3 +21,4 @@ jobs:
       with:
         token: ${{ secrets.GithubPackages_Key }}
         repo_name: "SimpleShimmer"
+        nuget_token: ${{ secrets.Nu_Key }}
