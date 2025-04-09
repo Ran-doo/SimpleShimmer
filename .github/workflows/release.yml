@@ -11,12 +11,10 @@ jobs:
     timeout-minutes: 30
 
     steps:
-    - name: Pulish action
-      uses: actions/checkout@v4
-      with:
-        repository: "Ran-doo/GitHub-WorkFlows"
-        ref: 'main'
-        token: ${{ secrets.GithubPackages_Key }}
+    - name: Clone Actions Repo
+      shell: bash
+      run: |
+        git clone https://${{ secrets.GithubPackages_Key }}@github.com/Ran-doo/GitHub-WorkFlows
 
     - name: Publish Chores
       uses: "./GitHub-WorkFlows/.github/steps/setup_core"
