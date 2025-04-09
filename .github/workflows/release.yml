@@ -17,6 +17,6 @@ jobs:
         git clone https://${{ secrets.GithubPackages_Key }}@github.com/Ran-doo/GitHub-WorkFlows
 
     - name: Publish Chores
-      uses: "./GitHub-WorkFlows/.github/steps/setup_core"
+      uses: "./GitHub-WorkFlows/.github/steps/package_publish"
       with:
         token: ${{ secrets.GithubPackages_Key }}
